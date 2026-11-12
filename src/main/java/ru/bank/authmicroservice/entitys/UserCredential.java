@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users_credential")
+@Table(name = "user_credentials")
 @ToString
 @Getter
 @Setter

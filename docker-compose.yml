@@ -1,5 +1,5 @@
 services:
-  postgres:
+  auth-db:
     image: postgres:16-alpine
     container_name: auth-db
     environment:
@@ -8,11 +8,11 @@ services:
       POSTGRES_PASSWORD: postgres
 
     ports:
-      - "6432:6432"
+      - "6432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - auth_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d userdb"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d authdb"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -23,10 +23,10 @@ services:
     build: .
     container_name: auth-service
     depends_on:
-      postgres:
+      auth-db:
         condition: service_healthy
     environment:
-      DB_HOST: postgres
+      DB_HOST: auth-db
       DB_PORT: 5432
       DB_NAME: authdb
       DB_USER: postgres
@@ -42,4 +42,4 @@ networks:
     external: true
 
 volumes:
-  postgres_data:
+  auth_postgres_data:
