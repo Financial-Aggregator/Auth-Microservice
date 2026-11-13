@@ -147,15 +147,48 @@
     </dependencies>
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.7.1</version>
+            </extension>
+        </extensions>
+
         <plugins>
             <plugin>
                 <groupId>io.github.ascopes</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
+                <version>5.1.12</version>
                 <configuration>
+                    <!-- 1. Указываем, откуда скачать protoc -->
+                    <protoc kind="binary-maven">
+                        <version>${protobuf.version}</version>
+                    </protoc>
+
+                    <!-- 2. Подключаем плагин для генерации gRPC-стабов -->
+                    <plugins>
+                        <plugin kind="binary-maven">
+                            <groupId>io.grpc</groupId>
+                            <artifactId>protoc-gen-grpc-java</artifactId>
+                            <version>${grpc.version}</version>
+                        </plugin>
+                    </plugins>
+
+                    <!-- 3. Ваша директория с .proto файлами -->
                     <sourceDirectories>
-                        <sourceDirectory>proto-contracts/user</sourceDirectory>
+                        <sourceDirectory>${project.basedir}/src/main/proto-contracts/user</sourceDirectory>
                     </sourceDirectories>
+
+                    <!-- 4. Для gRPC < 1.74.0 (у вас 1.58.0), чтобы не тянуть javax.annotation -->
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
