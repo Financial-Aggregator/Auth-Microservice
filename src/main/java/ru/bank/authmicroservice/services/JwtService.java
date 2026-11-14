@@ -11,7 +11,7 @@ import java.util.UUID;
 @Service
 public class JwtService {
 
-    @Value("${jwt.secret:mySuperSecretKeyForBankingApplication1234567890}")
+    @Value("${JWT_SECRET}")
     private String secretKey;
 
     public String generateToken(String username, UUID userId) {
