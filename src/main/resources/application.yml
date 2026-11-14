@@ -36,6 +36,8 @@ logging:
   level:
     com.netflix.discovery: DEBUG
     org.springframework.cloud.netflix.eureka: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
 
 management:
   endpoints:
@@ -48,3 +50,12 @@ grpc:
     user-service:
       address: discovery:///user-service
       negotiationType: plaintext
+
+net:
+  devh:
+    boot:
+      grpc:
+        client:
+          nameresolver:
+            discovery-client:
+              service-metadata-keys: gRPC_port
