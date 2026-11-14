@@ -17,8 +17,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseDto> register(@RequestBody RegisterRequestDto request) {
-        return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(authService.register(request));
+    public ResponseEntity<Void> register(@RequestBody RegisterRequestDto request) {
+        return ResponseEntity.status(HttpStatusCode.valueOf(201)).build();
     }
 
     @PostMapping("/login")
