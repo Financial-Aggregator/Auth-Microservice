@@ -31,7 +31,7 @@ services:
       DB_NAME: authdb
       DB_USER: postgres
       DB_PASSWORD: postgres
-      JWT_SECRET: ${JWT_SECRET}
+      JWT_SECRET: mySuperSecretKeyForBankingApplication1234567890
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
     ports:
       - "7070:7070"
