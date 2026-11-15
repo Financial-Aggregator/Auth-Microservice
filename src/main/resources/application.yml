@@ -46,7 +46,7 @@ management:
         include: health
 
 jwt:
-  secret: mySuperSecretKeyForBankingApplication1234567890
+  secret-key: ${JWT_SECRET:mySuperSecretKeyForBankingApplication1234567890}
 
 grpc:
   client:
