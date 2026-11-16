@@ -34,7 +34,7 @@ public class AuthService {
     private user.UserServiceGrpc.UserServiceBlockingStub userStub;
 
     @Transactional
-    public AuthResponseDto register(RegisterRequestDto request) {
+    public void register(RegisterRequestDto request) {
         user.CreateUserRequest grpcRequest = user.CreateUserRequest.newBuilder()
                 .setFirstName(request.getFirstName())
                 .setLastName(request.getLastName())
@@ -66,9 +66,6 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
         repository.save(credential);
-
-        String token = jwtService.generateToken(credential.getUsername(), userId);
-        return new AuthResponseDto(token, userId);
     }
 
     public AuthResponseDto login(LoginRequestDto request) {
