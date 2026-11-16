@@ -1,7 +1,7 @@
 package ru.bank.authmicroservice.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +18,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody RegisterRequestDto request) {
-        return ResponseEntity.status(HttpStatusCode.valueOf(201)).build();
+        authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/login")
